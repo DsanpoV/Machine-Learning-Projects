@@ -1,0 +1,47 @@
+function P = calcula_particao(linha_do_representante, x, K)
+    N = length(x); % Número de elementos da BD
+
+    % Inicializa a matriz de dissimilaridades
+    d = zeros(K, N);
+
+    % Para todos os eventos, calcula a dissimilaridade entre o evento e os representantes
+    for i = 1:K % para todos os eventos
+        for j = 1:N % para todas os clusters
+            % d(i,j) deve ser a dissimilaridade do evento i ao representante j
+            d(i,j) = calcula_dissemelhanca(x(linha_do_representante(i), :), x(j, :)); % x(i,:) corresponde a 1 array com 2 coordenadas de x do evento 
+            if numel(x(linha_do_representante(i), :)) == 25
+    % Reshape do vetor para formar uma matriz 5x5
+    matriz_5x5 = reshape(x(novos_representantes(i), :), 5, 5);
+
+    % Criar uma figura
+    figure;
+
+    % Exibir a matriz usando a função imagesc
+    imagesc(matriz_5x5);
+
+    % Adicionar rótulos e título
+    xlabel('Coluna');
+    ylabel('Linha');
+    title('Matriz 5x5 com Cores');
+
+    % Adicionar barra de cores
+    colorbar;
+
+    % Adicionar rótulos dos eixos com as posições
+    [x, y] = meshgrid(1:5, 1:5);
+    text(x(:), y(:), num2str(data'), 'HorizontalAlignment', 'center', 'VerticalAlignment', 'middle', 'FontSize', 10);
+
+else
+    disp('O vetor não possui 25 posições.');
+end
+
+        end
+    end
+
+    % Exibe a matriz de dissimilaridades
+    disp('Matriz de Dissimilaridades:');
+    disp(d);
+
+    % Constrói a partição com base nas dissimilaridades
+    P = constroi_particao(d, N, K); % P contém lista de índices dos representantes para cada evento da BD
+end
